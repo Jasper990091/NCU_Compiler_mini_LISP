@@ -1,0 +1,2014 @@
+Terminals which are not used
+
+   SEP
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: stmts
+    2        | /* empty */
+
+    3 stmts: stmt
+    4      | stmts stmt
+
+    5 stmt: exp
+    6     | def_stmt
+    7     | print_stmt
+
+    8 print_stmt: LEFTBRC PNUM exp RIGHTBRC
+    9           | LEFTBRC PBOOL exp RIGHTBRC
+
+   10 exp: BOOL
+   11    | NUM
+   12    | variable
+   13    | num_op
+   14    | logical_op
+   15    | fun_exp
+   16    | fun_call
+   17    | if_exp
+
+   18 num_op: plus
+   19       | minus
+   20       | multiply
+   21       | devide
+   22       | modulus
+   23       | greater
+   24       | smaller
+   25       | equal
+
+   26 plus: LEFTBRC PLUS exp_plus RIGHTBRC
+
+   27 minus: LEFTBRC MIN exp exp RIGHTBRC
+
+   28 multiply: LEFTBRC MUL exp_multiply RIGHTBRC
+
+   29 devide: LEFTBRC DIV exp exp RIGHTBRC
+
+   30 modulus: LEFTBRC MOD exp exp RIGHTBRC
+
+   31 greater: LEFTBRC BIG exp exp RIGHTBRC
+
+   32 smaller: LEFTBRC SMALL exp exp RIGHTBRC
+
+   33 equal: LEFTBRC EQUAL exp_equal RIGHTBRC
+
+   34 logical_op: and_op
+   35           | or_op
+   36           | not_op
+
+   37 and_op: LEFTBRC AND exp_and RIGHTBRC
+
+   38 or_op: LEFTBRC OR exp_or RIGHTBRC
+
+   39 not_op: LEFTBRC NOT RIGHTBRC
+
+   40 def_stmt: LEFTBRC DEF variable exp RIGHTBRC
+
+   41 variable: ID
+
+   42 fun_exp: LEFTBRC FUN fun_ids fun_body RIGHTBRC
+
+   43 fun_ids: LEFTBRC ids RIGHTBRC
+
+   44 ids: ID
+   45    | ids ID
+
+   46 fun_body: exp
+
+   47 fun_call: LEFTBRC fun_exp exps RIGHTBRC
+   48         | LEFTBRC fun_name exps RIGHTBRC
+
+   49 exps: exp
+   50     | exps exp
+
+   51 fun_name: ID
+
+   52 if_exp: LEFTBRC IF test_exp than_exp else_exp RIGHTBRC
+
+   53 test_exp: exp
+
+   54 than_exp: exp
+
+   55 else_exp: exp
+
+   56 exp_plus: exp exp
+   57         | exp_plus exp
+
+   58 exp_multiply: exp exp
+   59             | exp_multiply exp
+
+   60 exp_equal: exp exp
+   61          | exp_equal exp
+
+   62 exp_and: exp exp
+   63        | exp_and exp
+
+   64 exp_or: exp exp
+   65       | exp_or exp
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUM (258) 11
+BOOL (259) 10
+ID (260) 41 44 45 51
+SEP (261)
+LEFTBRC (262) 8 9 26 27 28 29 30 31 32 33 37 38 39 40 42 43 47 48 52
+RIGHTBRC (263) 8 9 26 27 28 29 30 31 32 33 37 38 39 40 42 43 47 48
+    52
+PLUS (264) 26
+MIN (265) 27
+MUL (266) 28
+DIV (267) 29
+MOD (268) 30
+PNUM (269) 8
+PBOOL (270) 9
+BIG (271) 31
+SMALL (272) 32
+EQUAL (273) 33
+AND (274) 37
+OR (275) 38
+NOT (276) 39
+DEF (277) 40
+FUN (278) 42
+IF (279) 52
+
+
+Nonterminals, with rules where they appear
+
+$accept (25)
+    on left: 0
+program (26)
+    on left: 1 2, on right: 0
+stmts (27)
+    on left: 3 4, on right: 1 4
+stmt (28)
+    on left: 5 6 7, on right: 3 4
+print_stmt (29)
+    on left: 8 9, on right: 7
+exp (30)
+    on left: 10 11 12 13 14 15 16 17, on right: 5 8 9 27 29 30 31 32
+    40 46 49 50 53 54 55 56 57 58 59 60 61 62 63 64 65
+num_op (31)
+    on left: 18 19 20 21 22 23 24 25, on right: 13
+plus (32)
+    on left: 26, on right: 18
+minus (33)
+    on left: 27, on right: 19
+multiply (34)
+    on left: 28, on right: 20
+devide (35)
+    on left: 29, on right: 21
+modulus (36)
+    on left: 30, on right: 22
+greater (37)
+    on left: 31, on right: 23
+smaller (38)
+    on left: 32, on right: 24
+equal (39)
+    on left: 33, on right: 25
+logical_op (40)
+    on left: 34 35 36, on right: 14
+and_op (41)
+    on left: 37, on right: 34
+or_op (42)
+    on left: 38, on right: 35
+not_op (43)
+    on left: 39, on right: 36
+def_stmt (44)
+    on left: 40, on right: 6
+variable (45)
+    on left: 41, on right: 12 40
+fun_exp (46)
+    on left: 42, on right: 15 47
+fun_ids (47)
+    on left: 43, on right: 42
+ids (48)
+    on left: 44 45, on right: 43 45
+fun_body (49)
+    on left: 46, on right: 42
+fun_call (50)
+    on left: 47 48, on right: 16
+exps (51)
+    on left: 49 50, on right: 47 48 50
+fun_name (52)
+    on left: 51, on right: 48
+if_exp (53)
+    on left: 52, on right: 17
+test_exp (54)
+    on left: 53, on right: 52
+than_exp (55)
+    on left: 54, on right: 52
+else_exp (56)
+    on left: 55, on right: 52
+exp_plus (57)
+    on left: 56 57, on right: 26 57
+exp_multiply (58)
+    on left: 58 59, on right: 28 59
+exp_equal (59)
+    on left: 60 61, on right: 33 61
+exp_and (60)
+    on left: 62 63, on right: 37 63
+exp_or (61)
+    on left: 64 65, on right: 38 65
+
+
+state 0
+
+    0 $accept: . program $end
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 4
+
+    $default  reduce using rule 2 (program)
+
+    program     go to state 5
+    stmts       go to state 6
+    stmt        go to state 7
+    print_stmt  go to state 8
+    exp         go to state 9
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    def_stmt    go to state 23
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 1
+
+   11 exp: NUM .
+
+    $default  reduce using rule 11 (exp)
+
+
+state 2
+
+   10 exp: BOOL .
+
+    $default  reduce using rule 10 (exp)
+
+
+state 3
+
+   41 variable: ID .
+
+    $default  reduce using rule 41 (variable)
+
+
+state 4
+
+    8 print_stmt: LEFTBRC . PNUM exp RIGHTBRC
+    9           | LEFTBRC . PBOOL exp RIGHTBRC
+   26 plus: LEFTBRC . PLUS exp_plus RIGHTBRC
+   27 minus: LEFTBRC . MIN exp exp RIGHTBRC
+   28 multiply: LEFTBRC . MUL exp_multiply RIGHTBRC
+   29 devide: LEFTBRC . DIV exp exp RIGHTBRC
+   30 modulus: LEFTBRC . MOD exp exp RIGHTBRC
+   31 greater: LEFTBRC . BIG exp exp RIGHTBRC
+   32 smaller: LEFTBRC . SMALL exp exp RIGHTBRC
+   33 equal: LEFTBRC . EQUAL exp_equal RIGHTBRC
+   37 and_op: LEFTBRC . AND exp_and RIGHTBRC
+   38 or_op: LEFTBRC . OR exp_or RIGHTBRC
+   39 not_op: LEFTBRC . NOT RIGHTBRC
+   40 def_stmt: LEFTBRC . DEF variable exp RIGHTBRC
+   42 fun_exp: LEFTBRC . FUN fun_ids fun_body RIGHTBRC
+   47 fun_call: LEFTBRC . fun_exp exps RIGHTBRC
+   48         | LEFTBRC . fun_name exps RIGHTBRC
+   52 if_exp: LEFTBRC . IF test_exp than_exp else_exp RIGHTBRC
+
+    ID       shift, and go to state 28
+    LEFTBRC  shift, and go to state 29
+    PLUS     shift, and go to state 30
+    MIN      shift, and go to state 31
+    MUL      shift, and go to state 32
+    DIV      shift, and go to state 33
+    MOD      shift, and go to state 34
+    PNUM     shift, and go to state 35
+    PBOOL    shift, and go to state 36
+    BIG      shift, and go to state 37
+    SMALL    shift, and go to state 38
+    EQUAL    shift, and go to state 39
+    AND      shift, and go to state 40
+    OR       shift, and go to state 41
+    NOT      shift, and go to state 42
+    DEF      shift, and go to state 43
+    FUN      shift, and go to state 44
+    IF       shift, and go to state 45
+
+    fun_exp   go to state 46
+    fun_name  go to state 47
+
+
+state 5
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 48
+
+
+state 6
+
+    1 program: stmts .
+    4 stmts: stmts . stmt
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 4
+
+    $default  reduce using rule 1 (program)
+
+    stmt        go to state 49
+    print_stmt  go to state 8
+    exp         go to state 9
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    def_stmt    go to state 23
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 7
+
+    3 stmts: stmt .
+
+    $default  reduce using rule 3 (stmts)
+
+
+state 8
+
+    7 stmt: print_stmt .
+
+    $default  reduce using rule 7 (stmt)
+
+
+state 9
+
+    5 stmt: exp .
+
+    $default  reduce using rule 5 (stmt)
+
+
+state 10
+
+   13 exp: num_op .
+
+    $default  reduce using rule 13 (exp)
+
+
+state 11
+
+   18 num_op: plus .
+
+    $default  reduce using rule 18 (num_op)
+
+
+state 12
+
+   19 num_op: minus .
+
+    $default  reduce using rule 19 (num_op)
+
+
+state 13
+
+   20 num_op: multiply .
+
+    $default  reduce using rule 20 (num_op)
+
+
+state 14
+
+   21 num_op: devide .
+
+    $default  reduce using rule 21 (num_op)
+
+
+state 15
+
+   22 num_op: modulus .
+
+    $default  reduce using rule 22 (num_op)
+
+
+state 16
+
+   23 num_op: greater .
+
+    $default  reduce using rule 23 (num_op)
+
+
+state 17
+
+   24 num_op: smaller .
+
+    $default  reduce using rule 24 (num_op)
+
+
+state 18
+
+   25 num_op: equal .
+
+    $default  reduce using rule 25 (num_op)
+
+
+state 19
+
+   14 exp: logical_op .
+
+    $default  reduce using rule 14 (exp)
+
+
+state 20
+
+   34 logical_op: and_op .
+
+    $default  reduce using rule 34 (logical_op)
+
+
+state 21
+
+   35 logical_op: or_op .
+
+    $default  reduce using rule 35 (logical_op)
+
+
+state 22
+
+   36 logical_op: not_op .
+
+    $default  reduce using rule 36 (logical_op)
+
+
+state 23
+
+    6 stmt: def_stmt .
+
+    $default  reduce using rule 6 (stmt)
+
+
+state 24
+
+   12 exp: variable .
+
+    $default  reduce using rule 12 (exp)
+
+
+state 25
+
+   15 exp: fun_exp .
+
+    $default  reduce using rule 15 (exp)
+
+
+state 26
+
+   16 exp: fun_call .
+
+    $default  reduce using rule 16 (exp)
+
+
+state 27
+
+   17 exp: if_exp .
+
+    $default  reduce using rule 17 (exp)
+
+
+state 28
+
+   51 fun_name: ID .
+
+    $default  reduce using rule 51 (fun_name)
+
+
+state 29
+
+   42 fun_exp: LEFTBRC . FUN fun_ids fun_body RIGHTBRC
+
+    FUN  shift, and go to state 44
+
+
+state 30
+
+   26 plus: LEFTBRC PLUS . exp_plus RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 51
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    exp_plus    go to state 52
+
+
+state 31
+
+   27 minus: LEFTBRC MIN . exp exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 53
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 32
+
+   28 multiply: LEFTBRC MUL . exp_multiply RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp           go to state 54
+    num_op        go to state 10
+    plus          go to state 11
+    minus         go to state 12
+    multiply      go to state 13
+    devide        go to state 14
+    modulus       go to state 15
+    greater       go to state 16
+    smaller       go to state 17
+    equal         go to state 18
+    logical_op    go to state 19
+    and_op        go to state 20
+    or_op         go to state 21
+    not_op        go to state 22
+    variable      go to state 24
+    fun_exp       go to state 25
+    fun_call      go to state 26
+    if_exp        go to state 27
+    exp_multiply  go to state 55
+
+
+state 33
+
+   29 devide: LEFTBRC DIV . exp exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 56
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 34
+
+   30 modulus: LEFTBRC MOD . exp exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 57
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 35
+
+    8 print_stmt: LEFTBRC PNUM . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 58
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 36
+
+    9 print_stmt: LEFTBRC PBOOL . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 59
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 37
+
+   31 greater: LEFTBRC BIG . exp exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 60
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 38
+
+   32 smaller: LEFTBRC SMALL . exp exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 61
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 39
+
+   33 equal: LEFTBRC EQUAL . exp_equal RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 62
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    exp_equal   go to state 63
+
+
+state 40
+
+   37 and_op: LEFTBRC AND . exp_and RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 64
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    exp_and     go to state 65
+
+
+state 41
+
+   38 or_op: LEFTBRC OR . exp_or RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 66
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    exp_or      go to state 67
+
+
+state 42
+
+   39 not_op: LEFTBRC NOT . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 68
+
+
+state 43
+
+   40 def_stmt: LEFTBRC DEF . variable exp RIGHTBRC
+
+    ID  shift, and go to state 3
+
+    variable  go to state 69
+
+
+state 44
+
+   42 fun_exp: LEFTBRC FUN . fun_ids fun_body RIGHTBRC
+
+    LEFTBRC  shift, and go to state 70
+
+    fun_ids  go to state 71
+
+
+state 45
+
+   52 if_exp: LEFTBRC IF . test_exp than_exp else_exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 72
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    test_exp    go to state 73
+
+
+state 46
+
+   47 fun_call: LEFTBRC fun_exp . exps RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 74
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    exps        go to state 75
+    if_exp      go to state 27
+
+
+state 47
+
+   48 fun_call: LEFTBRC fun_name . exps RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 74
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    exps        go to state 76
+    if_exp      go to state 27
+
+
+state 48
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 49
+
+    4 stmts: stmts stmt .
+
+    $default  reduce using rule 4 (stmts)
+
+
+state 50
+
+   26 plus: LEFTBRC . PLUS exp_plus RIGHTBRC
+   27 minus: LEFTBRC . MIN exp exp RIGHTBRC
+   28 multiply: LEFTBRC . MUL exp_multiply RIGHTBRC
+   29 devide: LEFTBRC . DIV exp exp RIGHTBRC
+   30 modulus: LEFTBRC . MOD exp exp RIGHTBRC
+   31 greater: LEFTBRC . BIG exp exp RIGHTBRC
+   32 smaller: LEFTBRC . SMALL exp exp RIGHTBRC
+   33 equal: LEFTBRC . EQUAL exp_equal RIGHTBRC
+   37 and_op: LEFTBRC . AND exp_and RIGHTBRC
+   38 or_op: LEFTBRC . OR exp_or RIGHTBRC
+   39 not_op: LEFTBRC . NOT RIGHTBRC
+   42 fun_exp: LEFTBRC . FUN fun_ids fun_body RIGHTBRC
+   47 fun_call: LEFTBRC . fun_exp exps RIGHTBRC
+   48         | LEFTBRC . fun_name exps RIGHTBRC
+   52 if_exp: LEFTBRC . IF test_exp than_exp else_exp RIGHTBRC
+
+    ID       shift, and go to state 28
+    LEFTBRC  shift, and go to state 29
+    PLUS     shift, and go to state 30
+    MIN      shift, and go to state 31
+    MUL      shift, and go to state 32
+    DIV      shift, and go to state 33
+    MOD      shift, and go to state 34
+    BIG      shift, and go to state 37
+    SMALL    shift, and go to state 38
+    EQUAL    shift, and go to state 39
+    AND      shift, and go to state 40
+    OR       shift, and go to state 41
+    NOT      shift, and go to state 42
+    FUN      shift, and go to state 44
+    IF       shift, and go to state 45
+
+    fun_exp   go to state 46
+    fun_name  go to state 47
+
+
+state 51
+
+   56 exp_plus: exp . exp
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 77
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 52
+
+   26 plus: LEFTBRC PLUS exp_plus . RIGHTBRC
+   57 exp_plus: exp_plus . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 78
+
+    exp         go to state 79
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 53
+
+   27 minus: LEFTBRC MIN exp . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 80
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 54
+
+   58 exp_multiply: exp . exp
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 81
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 55
+
+   28 multiply: LEFTBRC MUL exp_multiply . RIGHTBRC
+   59 exp_multiply: exp_multiply . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 82
+
+    exp         go to state 83
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 56
+
+   29 devide: LEFTBRC DIV exp . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 84
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 57
+
+   30 modulus: LEFTBRC MOD exp . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 85
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 58
+
+    8 print_stmt: LEFTBRC PNUM exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 86
+
+
+state 59
+
+    9 print_stmt: LEFTBRC PBOOL exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 87
+
+
+state 60
+
+   31 greater: LEFTBRC BIG exp . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 88
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 61
+
+   32 smaller: LEFTBRC SMALL exp . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 89
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 62
+
+   60 exp_equal: exp . exp
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 90
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 63
+
+   33 equal: LEFTBRC EQUAL exp_equal . RIGHTBRC
+   61 exp_equal: exp_equal . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 91
+
+    exp         go to state 92
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 64
+
+   62 exp_and: exp . exp
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 93
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 65
+
+   37 and_op: LEFTBRC AND exp_and . RIGHTBRC
+   63 exp_and: exp_and . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 94
+
+    exp         go to state 95
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 66
+
+   64 exp_or: exp . exp
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 96
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 67
+
+   38 or_op: LEFTBRC OR exp_or . RIGHTBRC
+   65 exp_or: exp_or . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 97
+
+    exp         go to state 98
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 68
+
+   39 not_op: LEFTBRC NOT RIGHTBRC .
+
+    $default  reduce using rule 39 (not_op)
+
+
+state 69
+
+   40 def_stmt: LEFTBRC DEF variable . exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 99
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 70
+
+   43 fun_ids: LEFTBRC . ids RIGHTBRC
+
+    ID  shift, and go to state 100
+
+    ids  go to state 101
+
+
+state 71
+
+   42 fun_exp: LEFTBRC FUN fun_ids . fun_body RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 102
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_body    go to state 103
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 72
+
+   53 test_exp: exp .
+
+    $default  reduce using rule 53 (test_exp)
+
+
+state 73
+
+   52 if_exp: LEFTBRC IF test_exp . than_exp else_exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 104
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    than_exp    go to state 105
+
+
+state 74
+
+   49 exps: exp .
+
+    $default  reduce using rule 49 (exps)
+
+
+state 75
+
+   47 fun_call: LEFTBRC fun_exp exps . RIGHTBRC
+   50 exps: exps . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 106
+
+    exp         go to state 107
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 76
+
+   48 fun_call: LEFTBRC fun_name exps . RIGHTBRC
+   50 exps: exps . exp
+
+    NUM       shift, and go to state 1
+    BOOL      shift, and go to state 2
+    ID        shift, and go to state 3
+    LEFTBRC   shift, and go to state 50
+    RIGHTBRC  shift, and go to state 108
+
+    exp         go to state 107
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+
+
+state 77
+
+   56 exp_plus: exp exp .
+
+    $default  reduce using rule 56 (exp_plus)
+
+
+state 78
+
+   26 plus: LEFTBRC PLUS exp_plus RIGHTBRC .
+
+    $default  reduce using rule 26 (plus)
+
+
+state 79
+
+   57 exp_plus: exp_plus exp .
+
+    $default  reduce using rule 57 (exp_plus)
+
+
+state 80
+
+   27 minus: LEFTBRC MIN exp exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 109
+
+
+state 81
+
+   58 exp_multiply: exp exp .
+
+    $default  reduce using rule 58 (exp_multiply)
+
+
+state 82
+
+   28 multiply: LEFTBRC MUL exp_multiply RIGHTBRC .
+
+    $default  reduce using rule 28 (multiply)
+
+
+state 83
+
+   59 exp_multiply: exp_multiply exp .
+
+    $default  reduce using rule 59 (exp_multiply)
+
+
+state 84
+
+   29 devide: LEFTBRC DIV exp exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 110
+
+
+state 85
+
+   30 modulus: LEFTBRC MOD exp exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 111
+
+
+state 86
+
+    8 print_stmt: LEFTBRC PNUM exp RIGHTBRC .
+
+    $default  reduce using rule 8 (print_stmt)
+
+
+state 87
+
+    9 print_stmt: LEFTBRC PBOOL exp RIGHTBRC .
+
+    $default  reduce using rule 9 (print_stmt)
+
+
+state 88
+
+   31 greater: LEFTBRC BIG exp exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 112
+
+
+state 89
+
+   32 smaller: LEFTBRC SMALL exp exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 113
+
+
+state 90
+
+   60 exp_equal: exp exp .
+
+    $default  reduce using rule 60 (exp_equal)
+
+
+state 91
+
+   33 equal: LEFTBRC EQUAL exp_equal RIGHTBRC .
+
+    $default  reduce using rule 33 (equal)
+
+
+state 92
+
+   61 exp_equal: exp_equal exp .
+
+    $default  reduce using rule 61 (exp_equal)
+
+
+state 93
+
+   62 exp_and: exp exp .
+
+    $default  reduce using rule 62 (exp_and)
+
+
+state 94
+
+   37 and_op: LEFTBRC AND exp_and RIGHTBRC .
+
+    $default  reduce using rule 37 (and_op)
+
+
+state 95
+
+   63 exp_and: exp_and exp .
+
+    $default  reduce using rule 63 (exp_and)
+
+
+state 96
+
+   64 exp_or: exp exp .
+
+    $default  reduce using rule 64 (exp_or)
+
+
+state 97
+
+   38 or_op: LEFTBRC OR exp_or RIGHTBRC .
+
+    $default  reduce using rule 38 (or_op)
+
+
+state 98
+
+   65 exp_or: exp_or exp .
+
+    $default  reduce using rule 65 (exp_or)
+
+
+state 99
+
+   40 def_stmt: LEFTBRC DEF variable exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 114
+
+
+state 100
+
+   44 ids: ID .
+
+    $default  reduce using rule 44 (ids)
+
+
+state 101
+
+   43 fun_ids: LEFTBRC ids . RIGHTBRC
+   45 ids: ids . ID
+
+    ID        shift, and go to state 115
+    RIGHTBRC  shift, and go to state 116
+
+
+state 102
+
+   46 fun_body: exp .
+
+    $default  reduce using rule 46 (fun_body)
+
+
+state 103
+
+   42 fun_exp: LEFTBRC FUN fun_ids fun_body . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 117
+
+
+state 104
+
+   54 than_exp: exp .
+
+    $default  reduce using rule 54 (than_exp)
+
+
+state 105
+
+   52 if_exp: LEFTBRC IF test_exp than_exp . else_exp RIGHTBRC
+
+    NUM      shift, and go to state 1
+    BOOL     shift, and go to state 2
+    ID       shift, and go to state 3
+    LEFTBRC  shift, and go to state 50
+
+    exp         go to state 118
+    num_op      go to state 10
+    plus        go to state 11
+    minus       go to state 12
+    multiply    go to state 13
+    devide      go to state 14
+    modulus     go to state 15
+    greater     go to state 16
+    smaller     go to state 17
+    equal       go to state 18
+    logical_op  go to state 19
+    and_op      go to state 20
+    or_op       go to state 21
+    not_op      go to state 22
+    variable    go to state 24
+    fun_exp     go to state 25
+    fun_call    go to state 26
+    if_exp      go to state 27
+    else_exp    go to state 119
+
+
+state 106
+
+   47 fun_call: LEFTBRC fun_exp exps RIGHTBRC .
+
+    $default  reduce using rule 47 (fun_call)
+
+
+state 107
+
+   50 exps: exps exp .
+
+    $default  reduce using rule 50 (exps)
+
+
+state 108
+
+   48 fun_call: LEFTBRC fun_name exps RIGHTBRC .
+
+    $default  reduce using rule 48 (fun_call)
+
+
+state 109
+
+   27 minus: LEFTBRC MIN exp exp RIGHTBRC .
+
+    $default  reduce using rule 27 (minus)
+
+
+state 110
+
+   29 devide: LEFTBRC DIV exp exp RIGHTBRC .
+
+    $default  reduce using rule 29 (devide)
+
+
+state 111
+
+   30 modulus: LEFTBRC MOD exp exp RIGHTBRC .
+
+    $default  reduce using rule 30 (modulus)
+
+
+state 112
+
+   31 greater: LEFTBRC BIG exp exp RIGHTBRC .
+
+    $default  reduce using rule 31 (greater)
+
+
+state 113
+
+   32 smaller: LEFTBRC SMALL exp exp RIGHTBRC .
+
+    $default  reduce using rule 32 (smaller)
+
+
+state 114
+
+   40 def_stmt: LEFTBRC DEF variable exp RIGHTBRC .
+
+    $default  reduce using rule 40 (def_stmt)
+
+
+state 115
+
+   45 ids: ids ID .
+
+    $default  reduce using rule 45 (ids)
+
+
+state 116
+
+   43 fun_ids: LEFTBRC ids RIGHTBRC .
+
+    $default  reduce using rule 43 (fun_ids)
+
+
+state 117
+
+   42 fun_exp: LEFTBRC FUN fun_ids fun_body RIGHTBRC .
+
+    $default  reduce using rule 42 (fun_exp)
+
+
+state 118
+
+   55 else_exp: exp .
+
+    $default  reduce using rule 55 (else_exp)
+
+
+state 119
+
+   52 if_exp: LEFTBRC IF test_exp than_exp else_exp . RIGHTBRC
+
+    RIGHTBRC  shift, and go to state 120
+
+
+state 120
+
+   52 if_exp: LEFTBRC IF test_exp than_exp else_exp RIGHTBRC .
+
+    $default  reduce using rule 52 (if_exp)
