@@ -92,7 +92,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 15 "lisp.y"
+#line 33 "lisp.y"
 {
     int intNum;
     char string[10000];

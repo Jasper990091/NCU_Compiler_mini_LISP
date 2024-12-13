@@ -867,12 +867,13 @@ case 20:
 YY_RULE_SETUP
 #line 38 "lisp.l"
 {
+    sscanf(yytext, "%s", &(yylval.string));
     return ID;
 }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 41 "lisp.l"
+#line 42 "lisp.l"
 {
     sscanf(yytext, "%s", &(yylval.string));
     return BOOL;
@@ -881,20 +882,20 @@ YY_RULE_SETUP
 case 22:
 /* rule 22 can match eol */
 YY_RULE_SETUP
-#line 45 "lisp.l"
+#line 46 "lisp.l"
 {}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "lisp.l"
+#line 47 "lisp.l"
 {}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 49 "lisp.l"
+#line 50 "lisp.l"
 ECHO;
 	YY_BREAK
-#line 897 "lex.yy.c"
+#line 898 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1899,7 +1900,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 49 "lisp.l"
+#line 50 "lisp.l"
 
 
 

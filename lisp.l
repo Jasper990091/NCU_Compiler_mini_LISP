@@ -36,6 +36,7 @@ SEP [ \t\n\r]+
 "=" {return EQUAL;}
 
 {ID} {
+    sscanf(yytext, "%s", &(yylval.string));
     return ID;
 }
 {BOOL} {

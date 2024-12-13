@@ -125,6 +125,24 @@
 #include<stdbool.h>
 #include<string.h>
 
+struct Node{
+    char name[10000];
+    int val;
+};
+struct Node variable_to_value[10000];
+int now = 0;
+void insert(char* s, int val){
+    strcpy(variable_to_value[now].name, s);
+    variable_to_value[now].val = val;
+    now++;
+}
+int lookup(char* s){
+    for(int i = 0; i < now; i++){
+        if(!strcmp(variable_to_value[i].name, s)) return variable_to_value[i].val;
+    }
+    return 0;
+}
+
 int yylex(void);
 void yyerror(const char *s){
 
@@ -153,14 +171,14 @@ extern char* yytext;
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 15 "lisp.y"
+#line 33 "lisp.y"
 {
     int intNum;
     char string[10000];
     int pair[2];
 }
 /* Line 193 of yacc.c.  */
-#line 164 "y.tab.c"
+#line 182 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -173,7 +191,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 177 "y.tab.c"
+#line 195 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -468,7 +486,7 @@ static const yytype_int8 yyrhs[] =
       30,    30,     8,    -1,     7,    17,    30,    30,     8,    -1,
        7,    18,    56,     8,    -1,    41,    -1,    42,    -1,    43,
       -1,     7,    19,    57,     8,    -1,     7,    20,    58,     8,
-      -1,     7,    21,    30,     8,    -1,     7,    22,    45,    30,
+      -1,     7,    21,    30,     8,    -1,     7,    22,     5,    30,
        8,    -1,     5,    -1,     7,    23,    47,    49,     8,    -1,
        7,    48,     8,    -1,     5,    -1,    48,     5,    -1,    30,
       -1,     7,    46,    51,     8,    -1,     7,    52,    51,     8,
@@ -482,13 +500,13 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    28,    28,    29,    35,    36,    39,    40,    41,    44,
-      47,    53,    58,    62,    65,    69,    73,    76,    79,    85,
-      89,    93,    97,   101,   105,   109,   113,   119,   123,   127,
-     131,   135,   139,   144,   149,   154,   158,   162,   168,   172,
-     176,   181,   184,   186,   190,   191,   192,   194,   195,   196,
-     198,   198,   199,   201,   212,   216,   222,   226,   232,   237,
-     247,   252,   259,   264
+       0,    46,    46,    47,    53,    54,    57,    58,    59,    62,
+      65,    71,    76,    80,    84,    88,    92,    95,    98,   104,
+     108,   112,   116,   120,   124,   128,   132,   138,   142,   146,
+     150,   154,   158,   163,   168,   173,   177,   181,   187,   191,
+     195,   200,   204,   209,   213,   214,   215,   217,   218,   219,
+     221,   221,   222,   224,   235,   239,   245,   249,   255,   260,
+     270,   275,   282,   287
 };
 #endif
 
@@ -595,7 +613,7 @@ static const yytype_int8 yypgoto[] =
 {
      -32,   -32,   -32,   100,   -32,   -31,   -32,   -32,   -32,   -32,
      -32,   -32,   -32,   -32,   -32,   -32,   -32,   -32,   -32,   -32,
-      69,     8,   -32,   -32,   -32,   -32,    71,   -32,   -32,   -32,
+     -32,     8,   -32,   -32,   -32,   -32,    65,   -32,   -32,   -32,
      -32,   -32,   -32,   -32
 };
 
@@ -608,7 +626,7 @@ static const yytype_uint8 yytable[] =
 {
       52,    54,    55,    57,    58,    59,    60,    61,    62,    63,
       65,    67,    69,    47,    49,    73,    74,    74,    45,    71,
-       4,    77,    79,    80,    81,    83,    84,    85,    86,    87,
+      70,    77,    79,    80,    81,    83,    84,    85,    86,    87,
       88,    89,    90,    92,    93,    95,    96,    98,    99,   100,
      115,   103,   105,   116,   107,   107,     2,     3,     4,    29,
        5,    30,   101,    31,    32,    33,    34,    35,   109,    47,
@@ -617,7 +635,7 @@ static const yytype_uint8 yytable[] =
       36,    37,    38,    39,    40,    41,    42,    43,    44,    45,
       46,     1,   114,     2,     3,     4,   117,     5,     2,     3,
        4,   119,    51,    78,     2,     3,     4,    50,    51,    82,
-       2,     3,     4,    70,    51,    91,     2,     3,     4,    76,
+       2,     3,     4,    76,    51,    91,     2,     3,     4,     0,
       51,    94,     2,     3,     4,     0,    51,    97,     2,     3,
        4,     0,    51,   106,     2,     3,     4,     0,    51,   108,
        2,     3,     4,     0,    51
@@ -636,7 +654,7 @@ static const yytype_int8 yycheck[] =
       14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
       24,     1,     8,     3,     4,     5,     8,     7,     3,     4,
        5,     8,     7,     8,     3,     4,     5,     7,     7,     8,
-       3,     4,     5,    44,     7,     8,     3,     4,     5,    48,
+       3,     4,     5,    48,     7,     8,     3,     4,     5,    -1,
        7,     8,     3,     4,     5,    -1,     7,     8,     3,     4,
        5,    -1,     7,     8,     3,     4,     5,    -1,     7,     8,
        3,     4,     5,    -1,     7
@@ -653,7 +671,7 @@ static const yytype_uint8 yystos[] =
       18,    19,    20,    21,    22,    23,    24,    46,    52,     0,
       28,     7,    30,    54,    30,    30,    55,    30,    30,    30,
       30,    30,    30,    30,    56,    30,    57,    30,    58,    30,
-      45,     7,    47,    30,    30,    51,    51,    30,     8,    30,
+       5,     7,    47,    30,    30,    51,    51,    30,     8,    30,
       30,    30,     8,    30,    30,    30,     8,     8,    30,    30,
       30,     8,    30,    30,     8,    30,    30,     8,    30,     8,
       30,     5,    48,    30,    49,    30,     8,    30,     8,     8,
@@ -1472,7 +1490,7 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 29 "lisp.y"
+#line 47 "lisp.y"
     {
         printf("syntax error\n");
         exit(0);
@@ -1480,14 +1498,14 @@ yyreduce:
     break;
 
   case 9:
-#line 44 "lisp.y"
+#line 62 "lisp.y"
     {
         printf("%d\n", (yyvsp[(3) - (4)].pair)[1]);
     }
     break;
 
   case 10:
-#line 47 "lisp.y"
+#line 65 "lisp.y"
     {
         if((yyvsp[(3) - (4)].pair)[1] == 1) printf("#t\n");
         else printf("#f\n");
@@ -1495,7 +1513,7 @@ yyreduce:
     break;
 
   case 11:
-#line 53 "lisp.y"
+#line 71 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         if(!strcmp((yyvsp[(1) - (1)].string), "#t")) (yyval.pair)[1] = 1;
@@ -1504,7 +1522,7 @@ yyreduce:
     break;
 
   case 12:
-#line 58 "lisp.y"
+#line 76 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].intNum);
@@ -1512,14 +1530,15 @@ yyreduce:
     break;
 
   case 13:
-#line 62 "lisp.y"
+#line 80 "lisp.y"
     {
-        (yyval.pair)[0] = 2;
+        (yyval.pair)[0] = (yyvsp[(1) - (1)].pair)[0];
+        (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
     }
     break;
 
   case 14:
-#line 65 "lisp.y"
+#line 84 "lisp.y"
     {
         (yyval.pair)[0] = (yyvsp[(1) - (1)].pair)[0];
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1527,7 +1546,7 @@ yyreduce:
     break;
 
   case 15:
-#line 69 "lisp.y"
+#line 88 "lisp.y"
     {
         (yyval.pair)[0] = (yyvsp[(1) - (1)].pair)[0];
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1535,21 +1554,21 @@ yyreduce:
     break;
 
   case 16:
-#line 73 "lisp.y"
+#line 92 "lisp.y"
     {
         (yyval.pair)[0] = 2;
     }
     break;
 
   case 17:
-#line 76 "lisp.y"
+#line 95 "lisp.y"
     {
         (yyval.pair)[0] = 2;
     }
     break;
 
   case 18:
-#line 79 "lisp.y"
+#line 98 "lisp.y"
     {
         (yyval.pair)[0] = (yyvsp[(1) - (1)].pair)[0];
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1557,7 +1576,7 @@ yyreduce:
     break;
 
   case 19:
-#line 85 "lisp.y"
+#line 104 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1565,7 +1584,7 @@ yyreduce:
     break;
 
   case 20:
-#line 89 "lisp.y"
+#line 108 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1573,7 +1592,7 @@ yyreduce:
     break;
 
   case 21:
-#line 93 "lisp.y"
+#line 112 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1581,7 +1600,7 @@ yyreduce:
     break;
 
   case 22:
-#line 97 "lisp.y"
+#line 116 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1589,7 +1608,7 @@ yyreduce:
     break;
 
   case 23:
-#line 101 "lisp.y"
+#line 120 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1597,7 +1616,7 @@ yyreduce:
     break;
 
   case 24:
-#line 105 "lisp.y"
+#line 124 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1605,7 +1624,7 @@ yyreduce:
     break;
 
   case 25:
-#line 109 "lisp.y"
+#line 128 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1613,7 +1632,7 @@ yyreduce:
     break;
 
   case 26:
-#line 113 "lisp.y"
+#line 132 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1621,7 +1640,7 @@ yyreduce:
     break;
 
   case 27:
-#line 119 "lisp.y"
+#line 138 "lisp.y"
     {
     (yyval.pair)[0] = 0;
     (yyval.pair)[1] = (yyvsp[(3) - (4)].pair)[1];
@@ -1629,7 +1648,7 @@ yyreduce:
     break;
 
   case 28:
-#line 123 "lisp.y"
+#line 142 "lisp.y"
     {
     (yyval.pair)[0] = 0;
     (yyval.pair)[1] = (yyvsp[(3) - (5)].pair)[1] - (yyvsp[(4) - (5)].pair)[1];
@@ -1637,7 +1656,7 @@ yyreduce:
     break;
 
   case 29:
-#line 127 "lisp.y"
+#line 146 "lisp.y"
     {
     (yyval.pair)[0] = 0;
     (yyval.pair)[1] = (yyvsp[(3) - (4)].pair)[1];
@@ -1645,7 +1664,7 @@ yyreduce:
     break;
 
   case 30:
-#line 131 "lisp.y"
+#line 150 "lisp.y"
     {
     (yyval.pair)[0] = 0;
     (yyval.pair)[1] = (yyvsp[(3) - (5)].pair)[1] / (yyvsp[(4) - (5)].pair)[1];
@@ -1653,7 +1672,7 @@ yyreduce:
     break;
 
   case 31:
-#line 135 "lisp.y"
+#line 154 "lisp.y"
     {
     (yyval.pair)[0] = 0;
     (yyval.pair)[1] = (yyvsp[(3) - (5)].pair)[1] % (yyvsp[(4) - (5)].pair)[1];
@@ -1661,7 +1680,7 @@ yyreduce:
     break;
 
   case 32:
-#line 139 "lisp.y"
+#line 158 "lisp.y"
     {
     (yyval.pair)[0] = 1;
     if((yyvsp[(3) - (5)].pair)[1] > (yyvsp[(4) - (5)].pair)[1]) (yyval.pair)[1] = 1;
@@ -1670,7 +1689,7 @@ yyreduce:
     break;
 
   case 33:
-#line 144 "lisp.y"
+#line 163 "lisp.y"
     {
     (yyval.pair)[0] = 1;
     if((yyvsp[(3) - (5)].pair)[1] < (yyvsp[(4) - (5)].pair)[1]) (yyval.pair)[1] = 1;
@@ -1679,7 +1698,7 @@ yyreduce:
     break;
 
   case 34:
-#line 149 "lisp.y"
+#line 168 "lisp.y"
     {
     (yyval.pair)[0] = 1;
     (yyval.pair)[1] = (yyvsp[(3) - (4)].pair)[0];
@@ -1687,7 +1706,7 @@ yyreduce:
     break;
 
   case 35:
-#line 154 "lisp.y"
+#line 173 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1695,7 +1714,7 @@ yyreduce:
     break;
 
   case 36:
-#line 158 "lisp.y"
+#line 177 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1703,7 +1722,7 @@ yyreduce:
     break;
 
   case 37:
-#line 162 "lisp.y"
+#line 181 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         (yyval.pair)[1] = (yyvsp[(1) - (1)].pair)[1];
@@ -1711,7 +1730,7 @@ yyreduce:
     break;
 
   case 38:
-#line 168 "lisp.y"
+#line 187 "lisp.y"
     {
     (yyval.pair)[0] = 1;
     (yyval.pair)[1] = (yyvsp[(3) - (4)].pair)[1];
@@ -1719,7 +1738,7 @@ yyreduce:
     break;
 
   case 39:
-#line 172 "lisp.y"
+#line 191 "lisp.y"
     {
     (yyval.pair)[0] = 1;
     (yyval.pair)[1] = (yyvsp[(3) - (4)].pair)[1];
@@ -1727,15 +1746,30 @@ yyreduce:
     break;
 
   case 40:
-#line 176 "lisp.y"
+#line 195 "lisp.y"
     {
     (yyval.pair)[0] = 1;
     (yyval.pair)[1] = ((yyvsp[(3) - (4)].pair)[1] + 1) % 2;
 }
     break;
 
+  case 41:
+#line 200 "lisp.y"
+    {
+    insert((yyvsp[(3) - (5)].string), (yyvsp[(4) - (5)].pair)[1]);
+}
+    break;
+
+  case 42:
+#line 204 "lisp.y"
+    {
+    (yyval.pair)[0] = 0;
+    (yyval.pair)[1] = lookup((yyvsp[(1) - (1)].string));
+}
+    break;
+
   case 53:
-#line 201 "lisp.y"
+#line 224 "lisp.y"
     {
     if((yyvsp[(3) - (6)].pair)[1] == 1){
         (yyval.pair)[0] = (yyvsp[(4) - (6)].pair)[0];
@@ -1749,7 +1783,7 @@ yyreduce:
     break;
 
   case 54:
-#line 212 "lisp.y"
+#line 235 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (2)].pair)[1] + (yyvsp[(2) - (2)].pair)[1];
@@ -1757,7 +1791,7 @@ yyreduce:
     break;
 
   case 55:
-#line 216 "lisp.y"
+#line 239 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (2)].pair)[1] + (yyvsp[(2) - (2)].pair)[1];
@@ -1765,7 +1799,7 @@ yyreduce:
     break;
 
   case 56:
-#line 222 "lisp.y"
+#line 245 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (2)].pair)[1] * (yyvsp[(2) - (2)].pair)[1];
@@ -1773,7 +1807,7 @@ yyreduce:
     break;
 
   case 57:
-#line 226 "lisp.y"
+#line 249 "lisp.y"
     {
         (yyval.pair)[0] = 0;
         (yyval.pair)[1] = (yyvsp[(1) - (2)].pair)[1] * (yyvsp[(2) - (2)].pair)[1];
@@ -1781,7 +1815,7 @@ yyreduce:
     break;
 
   case 58:
-#line 232 "lisp.y"
+#line 255 "lisp.y"
     {
         if((yyvsp[(1) - (2)].pair)[1] == (yyvsp[(2) - (2)].pair)[1]) (yyval.pair)[0] = 1;
         else (yyval.pair)[0] = 0;
@@ -1790,7 +1824,7 @@ yyreduce:
     break;
 
   case 59:
-#line 237 "lisp.y"
+#line 260 "lisp.y"
     {
         if((yyvsp[(1) - (2)].pair)[0] == 0) (yyval.pair)[0] = 0;
         else{
@@ -1802,7 +1836,7 @@ yyreduce:
     break;
 
   case 60:
-#line 247 "lisp.y"
+#line 270 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         if((yyvsp[(1) - (2)].pair)[1] == 1 && (yyvsp[(2) - (2)].pair)[1] == 1) (yyval.pair)[1] = 1;
@@ -1811,7 +1845,7 @@ yyreduce:
     break;
 
   case 61:
-#line 252 "lisp.y"
+#line 275 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         if((yyvsp[(1) - (2)].pair)[1] == 1 && (yyvsp[(2) - (2)].pair)[1] == 1) (yyval.pair)[1] = 1;
@@ -1820,7 +1854,7 @@ yyreduce:
     break;
 
   case 62:
-#line 259 "lisp.y"
+#line 282 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         if((yyvsp[(1) - (2)].pair)[1] == 1 || (yyvsp[(2) - (2)].pair)[1] == 1) (yyval.pair)[1] = 1;
@@ -1829,7 +1863,7 @@ yyreduce:
     break;
 
   case 63:
-#line 264 "lisp.y"
+#line 287 "lisp.y"
     {
         (yyval.pair)[0] = 1;
         if((yyvsp[(1) - (2)].pair)[1] == 1 || (yyvsp[(2) - (2)].pair)[1] == 1) (yyval.pair)[1] = 1;
@@ -1839,7 +1873,7 @@ yyreduce:
 
 
 /* Line 1267 of yacc.c.  */
-#line 1843 "y.tab.c"
+#line 1877 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2053,7 +2087,7 @@ yyreturn:
 }
 
 
-#line 271 "lisp.y"
+#line 294 "lisp.y"
 
 
 int main() {

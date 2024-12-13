@@ -4,6 +4,25 @@
 #include<stdbool.h>
 #include<string.h>
 
+struct Node{
+    char name[10000];
+    int val;
+};
+struct Node variable_to_value[10000];
+
+int now = 0;
+void insert(char* s, int val){
+    strcpy(variable_to_value[now].name, s);
+    variable_to_value[now].val = val;
+    now++;
+}
+int lookup(char* s){
+    for(int i = 0; i < now; i++){
+        if(!strcmp(variable_to_value[i].name, s)) return variable_to_value[i].val;
+    }
+    return 0;
+}
+
 int yylex(void);
 void yyerror(const char *s){
 
@@ -18,11 +37,11 @@ extern char* yytext;
     int pair[2];
 }
 %token <intNum> NUM
-%token <string> BOOL
+%token <string> BOOL ID
 
-%token ID SEP LEFTBRC RIGHTBRC PLUS MIN MUL DIV MOD PNUM PBOOL BIG SMALL EQUAL AND OR NOT DEF FUN IF
+%token SEP LEFTBRC RIGHTBRC PLUS MIN MUL DIV MOD PNUM PBOOL BIG SMALL EQUAL AND OR NOT DEF FUN IF
 
-%type <pair> exp num_op logical_op if_exp and_op or_op not_op exp_plus exp_multiply exp_and exp_or exp_equal plus minus multiply devide modulus greater smaller equal
+%type <pair> exp num_op logical_op if_exp and_op or_op not_op exp_plus exp_multiply exp_and exp_or exp_equal plus minus multiply devide modulus greater smaller equal variable
 
 %%
 program: stmts
@@ -60,7 +79,8 @@ exp: BOOL{
         $$[1] = $1;
     }
     | variable{
-        $$[0] = 2;
+        $$[0] = $1[0];
+        $$[1] = $1[1];
     }
     | num_op{
         $$[0] = $1[0];
@@ -178,10 +198,14 @@ not_op: LEFTBRC NOT exp RIGHTBRC{
     $$[1] = ($3[1] + 1) % 2;
 };
 
-def_stmt: LEFTBRC DEF variable exp RIGHTBRC
-    ;
+def_stmt: LEFTBRC DEF ID exp RIGHTBRC{
+    insert($3, $4[1]);
+};
 
-variable: ID;
+variable: ID{
+    $$[0] = 0;
+    $$[1] = lookup($1);
+};
 
 fun_exp: LEFTBRC FUN fun_ids fun_body RIGHTBRC
     ;
