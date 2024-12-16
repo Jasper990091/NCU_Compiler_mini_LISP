@@ -95,12 +95,12 @@ class MiniLispFunctions(Transformer):
     
 
 if __name__ == '__main__':
-    #try:
-    userinput = sys.stdin.read()
-    tree = parser.parse(userinput)
-    print(tree.pretty())
-    result = MiniLispFunctions().transform(tree)
-    '''
+    try:
+        userinput = sys.stdin.read()
+        tree = parser.parse(userinput)
+        #print(tree.pretty())
+        result = MiniLispFunctions().transform(tree)
+    
     except Exception as e:
         print("syntax error")
-    '''
+    
