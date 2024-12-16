@@ -1,0 +1,67 @@
+program: stmt+
+
+stmt: exp
+    | def_stmt
+    | print_stmt
+
+print_stmt: "(" "print-num" exp ")" -> print_num
+    | "(" "print-bool" exp ")" -> print_bool
+
+exp: BOOL -> boo
+    | NUM -> num
+    | variable -> var
+    | num_op -> get_num
+    | logical_op -> get_log
+    | fun_exp
+    | fun_call
+    | if_exp ->get_if
+
+num_op: plus
+    | minus
+    | multiply
+    | devide
+    | modulus
+    | greater
+    | smaller
+    | equal
+
+plus: "(" "+" exp exp+ ")"
+minus: "(" "-" exp exp ")"
+multiply: "(" "*" exp exp+ ")"
+devide: "(" "/" exp exp ")"
+modulus: "(" "mod" exp exp ")"
+greater: "(" ">" exp exp ")"
+smaller: "(" "<" exp exp ")"
+equal: "(" "=" exp exp+ ")"
+
+logical_op: and_op
+    | or_op
+    | not_op
+
+and_op: "(" "and" exp exp+")"
+or_op: "(" "or" exp exp+ ")"
+not_op: "(" "not" exp ")"
+
+def_stmt: "(" "define" ID exp ")"
+
+variable: ID
+
+fun_exp: "(" "fun" fun_ids fun_body ")"
+
+fun_ids: "(" ID* ")"
+
+fun_body: exp
+
+fun_call: "(" fun_exp exp* ")"
+    | "(" fun_name exp* ")"
+
+fun_name: ID
+
+if_exp: "(" "if" exp exp exp ")"
+
+BOOL: "#t"|"#f"
+SEP: /[ \t\n\r]+/
+NUM: "0"|/[1-9][0-9]*/|/-[1-9][0-9]*/
+ID: /[a-z]([a-z]|[0-9]|\-)*/
+
+%ignore SEP
