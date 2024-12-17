@@ -1,22 +1,22 @@
 program: stmt+
 
-stmt: exp
+?stmt: exp
     | def_stmt
     | print_stmt
 
-print_stmt: "(" "print-num" exp ")" -> print_num
+?print_stmt: "(" "print-num" exp ")" -> print_num
     | "(" "print-bool" exp ")" -> print_bool
 
-exp: BOOL -> boo
-    | NUM -> num
-    | variable -> var
-    | num_op -> get_num
-    | logical_op -> get_log
+?exp: BOOL
+    | NUM
+    | variable
+    | num_op
+    | logical_op
     | fun_exp
     | fun_call
-    | if_exp ->get_if
+    | if_exp
 
-num_op: plus
+?num_op: plus
     | minus
     | multiply
     | devide
@@ -34,7 +34,7 @@ greater: "(" ">" exp exp ")"
 smaller: "(" "<" exp exp ")"
 equal: "(" "=" exp exp+ ")"
 
-logical_op: and_op
+?logical_op: and_op
     | or_op
     | not_op
 
@@ -44,7 +44,7 @@ not_op: "(" "not" exp ")"
 
 def_stmt: "(" "define" ID exp ")"
 
-variable: ID
+?variable: ID
 
 fun_exp: "(" "fun" fun_ids fun_body ")"
 
