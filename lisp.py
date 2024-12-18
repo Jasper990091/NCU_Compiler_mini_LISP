@@ -3,88 +3,79 @@ import argparse
 import logging
 import sys
 
-variable_to_value = dict()
-
 with open('lisp.lark') as larkfile:
     parser = Lark(larkfile, start='program', parser='lalr', lexer='contextual')
-       
+
+def print_num(*token):
+    print(token[0])
+    return
+
+def print_bool(*token):
+    if(token[0]): print("#t")
+    else: print("#f")
+    return
+
+def plus(*token):
+    return sum(token)
+
+def minus(*token):
+    return token[0] - token[1]
+
+def multiply(*token):
+    sum = 1
+    for i in token:
+        sum *= i
+    
+    return sum
+
+def devide(*token):
+    return token[0] // token[1]
+
+def modulus(*token):
+    return token[0] % token[1]
+
+def greater(*token):
+    return bool(token[0] > token[1])
+
+def smaller(*token):
+    return bool(token[0] < token[1])
+
+def equal(*token):
+    return bool(token.count(token[0]) == len(token))
+
+def and_op(*token):
+    return all(token)
+
+def or_op(*token):
+    return any(token)
+
+def not_op(*token):
+    return not token[0]
+
+basicFunctions = {
+    'print_num' : print_num,
+    'print_bool' : print_bool,
+    'plus' : plus,
+    'minus' : minus,
+    'multiply' : multiply,
+    'devide' : devide,
+    'modulus' : modulus,
+    'greater' : greater,
+    'smaller' : smaller,
+    'equal' : equal,
+    'and_op' : and_op,
+    'or_op' : or_op,
+    'not_op' : not_op
+}
 
 class variableToValue(dict):
-    def print_num(self, *token):
-        print(token[0])
-        return
-    
-    def print_bool(self, *token):
-        if(token[0]): print("#t")
-        else: print("#f")
-        return
-    
-    def plus(self, *token):
-        return sum(token)
-    
-    def minus(self, *token):
-        return token[0] - token[1]
-    
-    def multiply(self, *token):
-        sum = 1
-        for i in token:
-            sum *= i
-        
-        return sum
-    
-    def devide(self, *token):
-        return token[0] // token[1]
-    
-    def modulus(self, *token):
-        return token[0] % token[1]
-    
-    def greater(self, *token):
-        return bool(token[0] > token[1])
-    
-    def smaller(self, *token):
-        return bool(token[0] < token[1])
-    
-    def equal(self, *token):
-        return bool(token.count(token[0]) == len(token))
-    
-    def and_op(self, *token):
-        return all(token)
-    
-    def or_op(self, *token):
-        return any(token)
-    
-    def not_op(self, *token):
-        return not token[0]
-    
-    def if_exp(self, token):
-        if(token[0]): return token[1]
-        else: return token[2]
-        
-    def def_stmt(self, token):
-        variable_to_value[str(token[0])] = token[1]
-    
-    def __init__(self, first = False, variables = tuple(), values = tuple(), previous = None):
+    def __init__(self, variables = tuple(), values = tuple(), previous = None):
         super(variableToValue, self).__init__()
-        if(first):
-            self['print_num'] = self.print_num
-            self['print_bool'] = self.print_bool
-            self['plus'] = self.plus
-            self['minus'] = self.minus
-            self['multiply'] = self.multiply
-            self['devide'] = self.devide
-            self['modulus'] = self.modulus
-            self['greater'] = self.greater
-            self['smaller'] = self.smaller
-            self['equal'] = self.equal
-            self['and_op'] = self.and_op
-            self['or_op'] = self.or_op
-            self['not_op'] = self.not_op
-        
         self.update(zip(variables, values))
     
 def traverseAST(node, scope):
-    if(not scope):
-        scope = variableToValue(first = True)
+    if(scope is None):
+        scope = variableToValue()
 
     try:
         return int(node)
@@ -108,7 +99,7 @@ def traverseAST(node, scope):
             name = str(node.children[0])
             scope[name] = traverseAST(node.children[1], scope)
         else:
-            fun = traverseAST(node.data, scope)
+            fun = basicFunctions[node.data]
             tokens = []
             for i in node.children:
                 tokens.append(traverseAST(i, scope))
