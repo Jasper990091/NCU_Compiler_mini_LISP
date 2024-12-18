@@ -46,16 +46,14 @@ def_stmt: "(" "define" ID exp ")"
 
 ?variable: ID
 
-fun_exp: "(" "fun" fun_ids fun_body ")"
+fun_exp: "(" "fun" "(" ID* ")" fun_body ")"
 
-fun_ids: "(" ID* ")"
-
-fun_body: exp
+fun_body: def_stmt* exp
 
 fun_call: "(" fun_exp exp* ")"
     | "(" fun_name exp* ")"
 
-fun_name: ID
+?fun_name: ID
 
 if_exp: "(" "if" exp exp exp ")"
 

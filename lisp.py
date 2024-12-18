@@ -72,6 +72,17 @@ class variableToValue(dict):
     def __init__(self, variables = tuple(), values = tuple(), previous = None):
         super(variableToValue, self).__init__()
         self.update(zip(variables, values))
+        self.previous = previous
+        
+class Function:
+    def __init__(self, rootnode, params = tuple(), scope = None):
+        self.rootnode = rootnode
+        self.params = params
+        self.scope = scope
+    
+    def __call__(self, *param):
+        newscope = variableToValue(variables = self.params, values = param, previous = self.scope)
+        return traverseAST(self.rootnode, newscope)
     
 def traverseAST(node, scope):
     if(scope is None):
@@ -98,6 +109,20 @@ def traverseAST(node, scope):
         elif(node.data == "def_stmt"):
             name = str(node.children[0])
             scope[name] = traverseAST(node.children[1], scope)
+        elif(node.data == "fun_exp"):
+            params = node.children[:-1]
+            rootnode = traverseAST(node.children[-1], scope)
+            return Function(rootnode, params, scope)
+        elif(node.data == "fun_body"):
+            for i in node.children[:-1]:
+                traverseAST(i, scope)
+            return node.children[-1]
+        elif(node.data == "fun_call"):
+            fun = traverseAST(node.children[0], scope)
+            params = []
+            for i in node.children[1:]:
+                params.append(traverseAST(i, scope))
+            return fun(*params)
         else:
             fun = basicFunctions[node.data]
             tokens = []
