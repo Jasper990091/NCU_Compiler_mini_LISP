@@ -131,15 +131,13 @@ def traverseAST(node, scope):
             return fun(*tokens)
         
 if __name__ == '__main__':
-    #try:
-    userinput = sys.stdin.read()
-    tree = parser.parse(userinput)
-    #print(tree.pretty())
-    traverseAST(tree, None)
-    '''
+    try:
+        userinput = sys.stdin.read()
+        tree = parser.parse(userinput)
+        #print(tree.pretty())
     except Exception as e:
         print("syntax error")
     else:
-        
-    '''
+        traverseAST(tree, None)
+
     
