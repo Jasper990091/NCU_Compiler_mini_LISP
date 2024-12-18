@@ -74,7 +74,7 @@ class variableToValue(dict):
         self.update(zip(variables, values))
         self.previous = previous
         
-class Function:
+class userFunction:
     def __init__(self, rootnode, params = tuple(), scope = None):
         self.rootnode = rootnode
         self.params = params
@@ -85,9 +85,6 @@ class Function:
         return traverseAST(self.rootnode, newscope)
     
 def traverseAST(node, scope):
-    if(scope is None):
-        scope = variableToValue()
-
     try:
         return int(node)
     except:
@@ -99,7 +96,6 @@ def traverseAST(node, scope):
         if(node.data == "program"):
             for i in node.children:
                 traverseAST(i, scope)
-                
             return
         elif(node.data == "if_exp"):
             if(traverseAST(node.children[0], scope)):
@@ -112,7 +108,7 @@ def traverseAST(node, scope):
         elif(node.data == "fun_exp"):
             params = node.children[:-1]
             rootnode = traverseAST(node.children[-1], scope)
-            return Function(rootnode, params, scope)
+            return userFunction(rootnode, params, scope)
         elif(node.data == "fun_body"):
             for i in node.children[:-1]:
                 traverseAST(i, scope)
@@ -138,6 +134,7 @@ if __name__ == '__main__':
     except Exception as e:
         print("syntax error")
     else:
-        traverseAST(tree, None)
+        scope = variableToValue()
+        traverseAST(tree, scope)
 
     
