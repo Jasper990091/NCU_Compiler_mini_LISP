@@ -48,7 +48,7 @@ def_stmt: "(" "define" ID exp ")"
 
 fun_exp: "(" "fun" "(" ID* ")" fun_body ")"
 
-fun_body: def_stmt* exp
+fun_body: exp
 
 fun_call: "(" fun_exp exp* ")"
     | "(" fun_name exp* ")"

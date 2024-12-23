@@ -1,6 +1,5 @@
 from lark import Lark, Transformer, v_args, Token, UnexpectedInput, UnexpectedToken, UnexpectedCharacters
 import argparse
-import logging
 import sys
 
 with open('lisp.lark') as larkfile:
@@ -67,21 +66,17 @@ basicFunctions = {
     'or_op' : or_op,
     'not_op' : not_op
 }
-
-class variableToValue(dict):
-    def __init__(self, variables = tuple(), values = tuple(), previous = None):
-        super(variableToValue, self).__init__()
-        self.update(zip(variables, values))
-        self.previous = previous
         
 class userFunction:
-    def __init__(self, rootnode, params = tuple(), scope = None):
+    def __init__(self, rootnode, params = tuple()):
         self.rootnode = rootnode
         self.params = params
-        self.scope = scope
     
     def __call__(self, *param):
-        newscope = variableToValue(variables = self.params, values = param, previous = self.scope)
+        newscope = dict()
+        for i in range(len(self.params)):
+            newscope[self.params[i]] = param[i]
+        
         return traverseAST(self.rootnode, newscope)
     
 def traverseAST(node, scope):
@@ -91,7 +86,11 @@ def traverseAST(node, scope):
         if(node == "#t"): return True
         elif(node == "#f"): return False
         elif(isinstance(node, str)):
-            return scope[node]
+            if(scope is None):
+                return globalscope[node]
+            else:
+                if(node in scope): return scope[node]
+                else: return globalscope[node]
         
         if(node.data == "program"):
             for i in node.children:
@@ -104,15 +103,17 @@ def traverseAST(node, scope):
                 return traverseAST(node.children[2], scope)
         elif(node.data == "def_stmt"):
             name = str(node.children[0])
-            scope[name] = traverseAST(node.children[1], scope)
+            if(scope is None):
+                globalscope[name] = traverseAST(node.children[1], scope)
+            else:
+                scope[name] = traverseAST(node.children[1], scope)
+            
         elif(node.data == "fun_exp"):
             params = node.children[:-1]
             rootnode = traverseAST(node.children[-1], scope)
-            return userFunction(rootnode, params, scope)
+            return userFunction(rootnode, params)
         elif(node.data == "fun_body"):
-            for i in node.children[:-1]:
-                traverseAST(i, scope)
-            return node.children[-1]
+            return node.children[0]
         elif(node.data == "fun_call"):
             fun = traverseAST(node.children[0], scope)
             params = []
@@ -134,7 +135,6 @@ if __name__ == '__main__':
     except Exception as e:
         print("syntax error")
     else:
-        scope = variableToValue()
-        traverseAST(tree, scope)
-
-    
+        global globalscope
+        globalscope = dict()
+        traverseAST(tree, None)
