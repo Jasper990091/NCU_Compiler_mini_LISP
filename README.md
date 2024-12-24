@@ -1,5 +1,6 @@
 # NCU Compiler Final Project: Mini LISP
-Make a Mini-Lisp interpreter with Python that has these features:  
+2024 National Central University Compiler Final Project  
+Made a Mini-Lisp interpreter with Python that has these features:  
   
 Basic:  
 - [x] Syntax Validation
