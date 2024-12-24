@@ -1,1 +1,5 @@
-先放著 之後再打
+# NCU Compiler Final Project: Mini LISP
+## Requirement
+python 3
+lark
+
