@@ -9,7 +9,8 @@ Basic:
 - [x] if Expression
 - [x] Variable Definition
 - [x] Function
-- [x] Named Function  
+- [x] Named Function
+  
 Bonus:  
 - [ ] Recursion
 - [ ] Type Checking
