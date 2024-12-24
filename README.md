@@ -15,8 +15,7 @@ Bonus:
 - [ ] Recursion
 - [ ] Type Checking
 - [ ] Nested Function
-- [ ] First-class Function
-
+- [ ] First-class Function  
 ## Requirements
 * python 3
 * lark
