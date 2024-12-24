@@ -1,6 +1,6 @@
 # NCU Compiler Final Project: Mini LISP
 Make a Mini-Lisp interpreter with Python that has these features:  
-  Basic:  
+Basic:  
 - [x] Syntax Validation
 - [x] Print
 - [x] Numerical Operations
@@ -15,7 +15,11 @@ Bonus:
 - [ ] Nested Function
 - [ ] First-class Function
 
-## Requirement
+## Requirements
 * python 3
 * lark
 
+## Usage
+```
+python lisp.py < [inputfile]
+```
