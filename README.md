@@ -18,7 +18,7 @@ Bonus:
 - [ ] Nested Function
 - [ ] First-class Function  
 ## Requirements
-* python 3
+* Python 3
 * lark
 
 ## Usage
