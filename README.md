@@ -1,6 +1,6 @@
 # NCU Compiler Final Project: Mini LISP
-Make a Mini-Lisp interpreter with Python that has these features:    
-Basic:  
+Make a Mini-Lisp interpreter with Python that has these features:  
+  Basic:  
 - [x] Syntax Validation
 - [x] Print
 - [x] Numerical Operations
