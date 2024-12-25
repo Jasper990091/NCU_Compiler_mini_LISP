@@ -1,5 +1,4 @@
 from lark import Lark, Transformer, v_args, Token, UnexpectedInput, UnexpectedToken, UnexpectedCharacters
-import argparse
 import sys
 
 with open('lisp.lark') as larkfile:
