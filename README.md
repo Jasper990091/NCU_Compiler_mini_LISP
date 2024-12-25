@@ -20,7 +20,7 @@ Bonus:
 ## Requirements
 * Python 3
 * lark
-
+* sys
 ## Usage
 ```
 python lisp.py < [inputfile]
