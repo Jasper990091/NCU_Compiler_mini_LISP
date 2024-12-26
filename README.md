@@ -13,7 +13,7 @@ Basic:
 - [x] Named Function
   
 Bonus:  
-- [ ] Recursion
+- [x] Recursion(在demo時意外發現不小心做出來了)
 - [ ] Type Checking
 - [ ] Nested Function
 - [ ] First-class Function  
